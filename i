@@ -14,6 +14,7 @@ define_base_dirs(){
 export wg_dir="$shd/../../"
 packdir=$HOME/arch/packed
 unpackdir=$HOME/arch/unpacked
+vrt=$HOME/vrt
 # }}}
 }
 
@@ -53,7 +54,8 @@ EOF
 # actual interesting part {{{
 cat << EOF
 
-some option
+atool		- archiving tool
+vrt PLUGIN	- for vim plugins etc.
 
 EOF
 # }}}
@@ -70,11 +72,31 @@ EOF
 [ -z "$*" ] && ( display_help; exit 0 )
 
 
+#git clone {{{
+
+gc(){
+git clone $*
+}
+
+#}}}
+
 main(){
 # {{{
 
 case "$1" in
   atool) [ -d "$1dir" ] && rm -rf "$1dir"; tar xvzf $1.tar.gz; cd "$1dir"; cnf hi; cd - ;;
+  "vrt") 
+  	shift;
+        cd $unpackdir
+	while [ ! -z "$1" ]; do
+		case "$1" in
+		  	tbibtools) 
+			gc "http://github.com/tomtom/tbibtools_vim"
+			;;
+		esac
+	  	shift
+	done	  
+  ;;
   *)
   ;;
 esac    # --- end of case ---
