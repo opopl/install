@@ -7,6 +7,7 @@ export this_script=` basename $0 `
 
 vim_opts="-n -p"
 v="vim $vim_opts"
+repos=( "config" "scripts" "templates" "vrt" "install" "doc-coms" "doc-cit" )
 
 define_base_dirs(){
 # {{{
@@ -14,15 +15,15 @@ define_base_dirs(){
 export wg_dir="$shd/../../"
 packdir=$HOME/arch/packed
 unpackdir=$HOME/arch/unpacked
-vrt=$HOME/vrt
 # }}}
 }
 
 
 set_base_vars(){
 # {{{
-s_purpose="installation script"
-s_project="~/install"
+s_purpose="view source files with vim"
+s_project="Wales group svn repository"
+s_project="~/scripts"
 # }}}
 }
 
@@ -54,8 +55,7 @@ EOF
 # actual interesting part {{{
 cat << EOF
 
-atool		- archiving tool
-vrt PLUGIN	- for vim plugins etc.
+some option
 
 EOF
 # }}}
@@ -71,48 +71,19 @@ EOF
 
 [ -z "$*" ] && ( display_help; exit 0 )
 
-
-#git clone {{{
-
-gc(){
-git clone $*
-}
-
-#}}}
-
 main(){
 # {{{
 
-cd $shd
-progs=( atool ranger tcsh )
-
-for p in ${progs[@]}; do
-  # {{{
 case "$1" in
-  $p) [ -d "$1dir" ] && rm -rf "$1dir"; tar xvzf $1.tar.gz; cd "$1dir"; 
- 	case $1 in 
-	 	atool | tcsh)  cnf hi; cd - ;;
-		ranger) ./setup.py install --prefix $HOME ;;
-	esac
+  a)
   ;;
-  "vrt") #VIMRUNTIME{{{
-  	shift;
-        cd $unpackdir
-	while [ ! -z "$1" ]; do
-		case "$1" in
-		  	tbibtools) 
-			gc "http://github.com/tomtom/tbibtools_vim"
-			;;
-		esac
-	  	shift
-	done	  
-  ;;
-#}}}
   *)
+  repos=( $1 )
   ;;
-esac   # --- end of case ---
-  # }}}
-done
+esac    # --- end of case ---
+
+cd $HOME
+
 # }}}
 }
 
