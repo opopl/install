@@ -84,8 +84,13 @@ main(){
 # {{{
 
 case "$1" in
-  atool) [ -d "$1dir" ] && rm -rf "$1dir"; tar xvzf $1.tar.gz; cd "$1dir"; cnf hi; cd - ;;
-  "vrt") 
+  atool | ranger) [ -d "$1dir" ] && rm -rf "$1dir"; tar xvzf $1.tar.gz; cd "$1dir"; 
+ 	case $1 in 
+	 	atool)  cnf hi; cd - ;;
+		ranger) ./setup.py install --prefix $HOME ;;
+	esac
+  ;;
+  "vrt") #VIMRUNTIME{{{
   	shift;
         cd $unpackdir
 	while [ ! -z "$1" ]; do
@@ -97,6 +102,7 @@ case "$1" in
 	  	shift
 	done	  
   ;;
+#}}}
   *)
   ;;
 esac    # --- end of case ---
