@@ -83,6 +83,8 @@ git clone $*
 main(){
 # {{{
 
+cd $shd
+
 case "$1" in
   atool | ranger) [ -d "$1dir" ] && rm -rf "$1dir"; tar xvzf $1.tar.gz; cd "$1dir"; 
  	case $1 in 
