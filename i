@@ -84,7 +84,7 @@ main(){
 # {{{
 
 cd $shd
-progs=( atool ranger tcsh )
+progs=( atool ranger tcsh perlsupport )
 
 for p in ${progs[@]}; do
   # {{{
@@ -93,6 +93,7 @@ case "$1" in
  	case $1 in 
 	 	atool | tcsh)  cnf hi; cd - ;;
 		ranger) ./setup.py install --prefix $HOME ;;
+		perl-support) cp -r * $VIMRUNTIME ;;
 	esac
   ;;
   "vrt") #VIMRUNTIME{{{
