@@ -84,11 +84,12 @@ main(){
 # {{{
 
 cd $shd
-progs=( atool ranger tcsh perlsupport )
+progs=( atool ranger tcsh perl-support )
 
 for p in ${progs[@]}; do
   # {{{
 case "$1" in
+  # progs {{{
   $p) [ -d "$1dir" ] && rm -rf "$1dir"; tar xvzf $1.tar.gz; cd "$1dir"; 
  	case $1 in 
 	 	atool | tcsh)  cnf hi; cd - ;;
@@ -96,6 +97,7 @@ case "$1" in
 		perl-support) cp -r * $VIMRUNTIME ;;
 	esac
   ;;
+  # }}}
   "vrt") #VIMRUNTIME{{{
   	shift;
         cd $unpackdir
